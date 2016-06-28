@@ -25,7 +25,7 @@ if($tableCreate == true)
 if(!empty($_FILES['export']['name']))
 {
     //Загрузка и экспорт файла в БД
-    $handlerCsv = new csvHandler($_FILES['export']['tmp_name']);
+    $handlerCsv = new CsvHandler($_FILES['export']['tmp_name']);
     $handlerCsv->export();
     $handlerCsv->printLink();
 

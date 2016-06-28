@@ -20,7 +20,7 @@ class DataBaseWork
             die(mysqli_connect_error());
         }
 
-        $this->mysqli->set_charset("cp1251");
+        $this->mysqli->set_charset("cp-1251");
     }
 
     public function createTable()
@@ -41,7 +41,7 @@ class DataBaseWork
         }
         else
         {
-            $resTableCreate =  'Таблица ' . $this->dbTableName . ' была создана ранее';
+            $resTableCreate =  true;
         }
 
         return  $resTableCreate;
@@ -63,7 +63,7 @@ class DataBaseWork
 
     }
 
-    //Метод возвращает случайную строку из таблицы с измененным статусом
+    //ћетод возвращает случайную строку из таблицы с измененным статусом
     public function changeStatus()
     {
         $countString = $this->mysqli->query("SELECT count(*) FROM $this->dbTableName");

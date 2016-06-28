@@ -58,7 +58,8 @@ class csvHandler
             //преобразует символы в нижний регистр
             $tempVar = mb_strtolower($tempVar, 'cp-1251');
 
-            for($i = 0; $i < iconv_strlen($tempVar); $i++)
+            $countSym = iconv_strlen($tempVar);
+			for($i = 0; $i < $countSym; $i++)
             {
                 //≈сли текущий и следующий за ним символы одновременно присутствуют в массиве, то они замен€ютс€ на соответствующие значени€.
                if($arRulesTranslit[$tempVar[$i] . $tempVar[$i + 1]])
@@ -74,10 +75,25 @@ class csvHandler
                 {
                     $this->arLinkList[$key] .=  $tempVar[$i];
                 }
-
+				
             }
-
-        }
+				//»щет в строке 2 и более знака '-'
+				preg_match('/(-+){2,}/', $this->arLinkList[$key], $matches);
+				//»щет в начале сивольной строке знак '/-'
+				preg_match('/\/-/', $this->arLinkList[$key], $firstString);
+				//»щет в конце сивольной строке знак '-/'
+				preg_match('/-\//', $this->arLinkList[$key], $lastString);
+				
+				if(!empty($matches))
+					$this->arLinkList[$key] = str_replace($matches[0], '-', $this->arLinkList[$key]);
+				
+				if(!empty($firstString))
+					$this->arLinkList[$key] = str_replace($firstString[0], '/', $this->arLinkList[$key]);
+				
+				if(!empty($lastString))
+					$this->arLinkList[$key] = str_replace($lastString[0], '/', $this->arLinkList[$key]);
+				
+		}
 
 
 

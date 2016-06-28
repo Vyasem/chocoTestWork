@@ -1,10 +1,4 @@
 <?php
-$host = 'localhost';
-$dbLogin = 'root';
-$dbPassword = '';
-$dbName = 'chocotest';
-$dbTableName = 'chocotable';
-
 //Автоматическое подеключение файла с нужным классом
 function __autoload($className)
 {
@@ -15,10 +9,18 @@ function __autoload($className)
     }
 }
 
+$host = 'localhost';
+$dbLogin = 'root';
+$dbPassword = '';
+$dbName = 'chocotest';
+$dbTableName = 'chocotable';
+
 //Создаём экземпляр класса для работы с БД
 $dbWork = new DataBaseWork($dbTableName);
 $dbWork -> connect($host, $dbLogin, $dbPassword, $dbName);
 $tableCreate = $dbWork -> createTable();
+if($tableCreate == true)
+	$tableCreate = 'Таблица ' . $dbTableName . ' была создана ранее';
 
 if(!empty($_FILES['export']['name']))
 {
@@ -36,7 +38,7 @@ if(!empty($_FILES['export']['name']))
     $changestatus = $dbWork->changeStatus();
     $resultat = $handlerCsv->recoveryDateFormat($changestatus[2]);
     $changestatus[2] = $resultat;
-    $modifiedString = 'Измененная запись в БД - ' . implode(';',$changestatus);
+    $modifiedString = 'Была изменена случайная запись в БД - ' . implode(';',$changestatus);
 
 
 
@@ -55,13 +57,13 @@ if(!empty($_FILES['export']['name']))
         <h2><?=$tableCreate?></h2>
         <h3><?=$modifiedString?></h3>
         <?if(isset($linkList)){?>
-        <h3>Сыылки на записи:</h3>
+        <h3>Ссылки на записи:</h3>
         <?foreach($linkList as $key => $values){?>
             <h5><a href="/<?=$values?>"><?=$values?></a></h5>
         <?}?>
         <?}?>
         <form method="post" action="" enctype="multipart/form-data">
-            <input type="file" name="export"><br>
+            <input type="file" name="export"><br><br>
             <input type="submit" value="Экспортировать">
         </form>
      </body>

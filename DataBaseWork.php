@@ -20,7 +20,7 @@ class DataBaseWork
             die(mysqli_connect_error());
         }
 
-        $this->mysqli->set_charset("cp-1251");
+        $this->mysqli->set_charset("utf8");
     }
 
     public function createTable()
@@ -63,7 +63,7 @@ class DataBaseWork
 
     }
 
-    //žåòîä âîçâðàùàåò ñëó÷àéíóþ ñòðîêó èç òàáëèöû ñ èçìåíåííûì ñòàòóñîì
+    //Ñ›ÐµÑ‚Ð¾Ð´ Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½ÑƒÑŽ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð¸Ð· Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð½Ñ‹Ð¼ ÑÑ‚Ð°Ñ‚ÑƒÑÐ¾Ð¼
     public function changeStatus()
     {
         $countString = $this->mysqli->query("SELECT count(*) FROM $this->dbTableName");

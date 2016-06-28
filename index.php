@@ -1,5 +1,5 @@
 <?php
-//Автоматическое подеключение файла с нужным классом
+//РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РїРѕРґРµРєР»СЋС‡РµРЅРёРµ С„Р°Р№Р»Р° СЃ РЅСѓР¶РЅС‹Рј РєР»Р°СЃСЃРѕРј
 function __autoload($className)
 {
     $includeFile = "{$className}.php";
@@ -15,16 +15,16 @@ $dbPassword = '';
 $dbName = 'chocotest';
 $dbTableName = 'chocotable';
 
-//Создаём экземпляр класса для работы с БД
+//РЎРѕР·РґР°С‘Рј СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р‘Р”
 $dbWork = new DataBaseWork($dbTableName);
 $dbWork -> connect($host, $dbLogin, $dbPassword, $dbName);
 $tableCreate = $dbWork -> createTable();
 if($tableCreate == true)
-	$tableCreate = 'Таблица ' . $dbTableName . ' была создана ранее';
+	$tableCreate = 'РўР°Р±Р»РёС†Р° ' . $dbTableName . ' Р±С‹Р»Р° СЃРѕР·РґР°РЅР° СЂР°РЅРµРµ';
 
 if(!empty($_FILES['export']['name']))
 {
-    //Загрузка и экспорт файла в БД
+    //Р—Р°РіСЂСѓР·РєР° Рё СЌРєСЃРїРѕСЂС‚ С„Р°Р№Р»Р° РІ Р‘Р”
     $handlerCsv = new csvHandler($_FILES['export']['tmp_name']);
     $handlerCsv->export();
     $handlerCsv->printLink();
@@ -38,7 +38,7 @@ if(!empty($_FILES['export']['name']))
     $changestatus = $dbWork->changeStatus();
     $resultat = $handlerCsv->recoveryDateFormat($changestatus[2]);
     $changestatus[2] = $resultat;
-    $modifiedString = 'Была изменена случайная запись в БД - ' . implode(';',$changestatus);
+    $modifiedString = 'Р‘С‹Р»Р° РёР·РјРµРЅРµРЅР° СЃР»СѓС‡Р°Р№РЅР°СЏ Р·Р°РїРёСЃСЊ РІ Р‘Р” - ' . implode(';',$changestatus);
 
 
 
@@ -50,21 +50,21 @@ if(!empty($_FILES['export']['name']))
 <html>
 
     <head>
-        <title>Тестовое задание</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=cp1251">
+        <title>РўРµСЃС‚РѕРІРѕРµ Р·Р°РґР°РЅРёРµ</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     </head>
     <body>
         <h2><?=$tableCreate?></h2>
         <h3><?=$modifiedString?></h3>
         <?if(isset($linkList)){?>
-        <h3>Ссылки на записи:</h3>
+        <h3>РЎСЃС‹Р»РєРё РЅР° Р·Р°РїРёСЃРё:</h3>
         <?foreach($linkList as $key => $values){?>
             <h5><a href="/<?=$values?>"><?=$values?></a></h5>
         <?}?>
         <?}?>
         <form method="post" action="" enctype="multipart/form-data">
             <input type="file" name="export"><br><br>
-            <input type="submit" value="Экспортировать">
+            <input type="submit" value="Р­РєСЃРїРѕСЂС‚РёСЂРѕРІР°С‚СЊ">
         </form>
      </body>
 </html>

@@ -36,7 +36,7 @@ class csvHandler
 
 
     //Ìåòîä âîçâðàùàåò ìàññèâ ñòðîê äëÿ ññûëîê
-    publi function printLink()
+    public function printLink()
     {
 
         $arRulesTranslit = array(

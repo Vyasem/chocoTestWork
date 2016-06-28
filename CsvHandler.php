@@ -1,6 +1,6 @@
 <?php
 
-class csvHandler
+class CsvHandler
 {
     public $resultCsv;
     public $arLinkList = array();
